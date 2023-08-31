@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import QuranicVerses from './QuranicVerses'; // Path to your component
 
-function App() {
-  const [count, setCount] = useState(0)
+import axios from 'axios';
+import React, { useState } from 'react';
 
+const App = () => {
+  const [query, setQuery] = useState("")
+  const ask = async () => {
+    setQuery(document.getElementById("query").value);
+
+    const response = await axios.post("https://flaskdemodeploytrial001.azurewebsites.net/", query);
+    console.log(response);
+  }
   return (
-    <>
+    <div className="App">
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <input type='text' id='query'></input>
+        <button onClick={ask}> Ask Question </button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
